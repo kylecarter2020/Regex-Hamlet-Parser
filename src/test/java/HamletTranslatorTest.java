@@ -48,6 +48,38 @@ public class HamletTranslatorTest {
     }
 
     @Test
+    public void testChangeHamletToLeonUpper() {
+        //given
+        HamletTranslator translator = new HamletTranslator();
+        String text = "I expect HAMLET to change";
+        Integer startIndex = 9;
+        Integer endIndex = 14;
+        String expected = "I expect LEON to change";
+
+        //when
+        String actual = translator.changeHamletToLeon(text, startIndex);
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testChangeHoratioToTariqUpper() {
+        //given
+        HamletTranslator translator = new HamletTranslator();
+        String text = "I expect HORATIO to change";
+        Integer startIndex = 9;
+        Integer endIndex = 15;
+        String expected = "I expect TARIQ to change";
+
+        //when
+        String actual = translator.changeHoratioToTariq(text, startIndex);
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
     public void testFindHoratio() {
         //given
         HamletTranslator translator = new HamletTranslator();
@@ -65,7 +97,7 @@ public class HamletTranslatorTest {
         HamletTranslator translator = new HamletTranslator();
 
         //when
-        String text = "I expect to find Horatio";
+        String text = "I expect to find Hamlet";
 
         //then
         Assert.assertTrue(translator.findHamlet(text));
@@ -128,9 +160,9 @@ public class HamletTranslatorTest {
         //given
         HamletTranslator translator = new HamletTranslator();
         String text = "I expect Horatio and HORATIO to change\n" +
-                "I also expect Hamlet and HAMLET to change";
+                "I also expect Hamlet and HAMLET to change\n";
         String expected = "I expect Tariq and TARIQ to change\n" +
-                "I also expect Leon and LEON to change";
+                "I also expect Leon and LEON to change\n";
 
         //when
         String actual = translator.translateText(text);
@@ -151,21 +183,6 @@ public class HamletTranslatorTest {
 
         //then
         Assert.assertEquals(expected,actual);
-    }
-
-    @Test
-    public void writeResultsToFile() {
-        //given
-        HamletTranslator translator = new HamletTranslator();
-        String text = "This is the text I want in my file\n" +
-                "if I dont see this text, I will be quite upset\n" +
-                "because that means my test probably failed.";
-
-        //when
-        translator.writeResultsToFile(text);
-
-        //then
-
     }
 
     @Test
@@ -198,10 +215,8 @@ public class HamletTranslatorTest {
     public void getHoratioStartIndices() {
         //given
         HamletTranslator translator = new HamletTranslator();
-        String text = "Horatio!\n" +
-                "Yes HAMLET?\n" +
-                "Let's go Horatio!\n";
-        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(0,18));
+        String text = "Horatio!\nYes HAMLET?\nLet's go Horatio!\n";
+        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(0,30));
 
         //when
         ArrayList<Integer> actual = translator.getHoratioStartIndices(text);
@@ -215,10 +230,8 @@ public class HamletTranslatorTest {
     public void getHamletStartIndices() {
         //given
         HamletTranslator translator = new HamletTranslator();
-        String text = "Horatio!\n" +
-                "Yes Hamlet?\n" +
-                "Let's go HORATIO!\n";
-        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(15));
+        String text = "Horatio!\nYes Hamlet?\nLet's go HORATIO!\n";
+        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(13));
 
         //when
         ArrayList<Integer> actual = translator.getHamletStartIndices(text);
